@@ -1,5 +1,6 @@
 'use client'
 
+import { useEffect, useState } from 'react'
 import { ThemeProvider } from 'styled-components'
 import { Box } from '@/components/atoms'
 import { theme, GlobalStyle } from '@/styles'
@@ -12,25 +13,28 @@ interface ClientComponentContainerProps {
 const ClientComponentContainer = ({
   children,
 }: ClientComponentContainerProps) => {
+  const [currentHeight, setCurrentHeight] = useState<number>(0)
+
+  useEffect(() => {
+    setCurrentHeight(window.innerHeight)
+  }, [])
+
   return (
     <StyledComponentsRegistry>
       <ThemeProvider theme={theme}>
         <GlobalStyle />
         <Box
           width={'100%'}
-          height={'100vh'}
           display={'flexCC'}
           backgroundColor={'wrapper'}
+          height={currentHeight || '100vh'}
         >
-          <Box width={430} height={'100vh'} display={'flexDAC'}>
-            <Box
-              width={375}
-              height={'100vh'}
-              padding={'0 20px'}
-              display={'flexDAC'}
-            >
-              {children}
-            </Box>
+          <Box
+            width={430}
+            display={'flexDAC'}
+            height={currentHeight || '100vh'}
+          >
+            {children}
           </Box>
         </Box>
       </ThemeProvider>
