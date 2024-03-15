@@ -1,9 +1,9 @@
 'use client'
 
-import { useEffect, useState } from 'react'
 import { ThemeProvider } from 'styled-components'
 import { Box } from '@/components/atoms'
 import { theme, GlobalStyle } from '@/styles'
+import { useCurrentWindowHeight } from '@/hooks'
 import StyledComponentsRegistry from '@/lib/registry'
 
 interface ClientComponentContainerProps {
@@ -13,11 +13,7 @@ interface ClientComponentContainerProps {
 const ClientComponentContainer = ({
   children,
 }: ClientComponentContainerProps) => {
-  const [currentHeight, setCurrentHeight] = useState<number>(0)
-
-  useEffect(() => {
-    setCurrentHeight(window.innerHeight)
-  }, [])
+  const currentHeight = useCurrentWindowHeight()
 
   return (
     <StyledComponentsRegistry>
