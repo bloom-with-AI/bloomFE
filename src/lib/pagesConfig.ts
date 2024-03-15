@@ -24,10 +24,10 @@ const pagesConfig = {
     showFooter: true,
     title: 'OnBoarding',
   },
-  '/detail': {
+  '/map/detail': {
     showHeader: true,
-    showFooter: true,
-    title: 'Detail',
+    showFooter: false,
+    title: 'Map Detail',
   },
 } as const
 
