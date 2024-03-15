@@ -3,7 +3,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import * as S from './styled'
-
 import { Box, Text } from '@/components/atoms'
 
 interface MapDetailCardProps {
@@ -19,7 +18,7 @@ interface MapDetailCardProps {
 
 const MapDetailCard = ({ currentMapItem }: MapDetailCardProps) => {
   return (
-    <Link href={`/mapDetail/${currentMapItem?.map_id}`}>
+    <Link href={`/map/detail/${currentMapItem?.map_id}`}>
       <S.MapDetailCardContainer>
         <S.Title>{currentMapItem.place_name}</S.Title>
         <Box
