@@ -2,14 +2,15 @@
 
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
-import styled from 'styled-components'
+import * as S from './styled'
 import { Map as KakaoMap, MapMarker } from 'react-kakao-maps-sdk'
 import { Button } from '@/components/atoms'
-import { MapDetailCard, MapNoSearchListCard } from './MapCard'
+import { useCurrentWindowHeight } from '@/hooks'
 import { MapFilterModal } from './MapFilterModal'
-import useSelectedVenueCategory from '@/states/useSelectedVenueCategory'
-import useCurrentPlaceId from '@/states/useCurrentPlaceId'
+import { MapDetailCard, MapNoSearchListCard } from './MapCard'
 import useVenueMapList from '@/states/useVenueMapList'
+import useCurrentPlaceId from '@/states/useCurrentPlaceId'
+import useSelectedVenueCategory from '@/states/useSelectedVenueCategory'
 
 const MAP_FILTER_TYPE = [
   { type: 'hallType', width: 61, title: '홀타입' },
@@ -21,10 +22,10 @@ const MAP_FILTER_TYPE = [
 ]
 
 const Map = () => {
+  const currentHeight = useCurrentWindowHeight()
+  const { venueMapList, setVenueMapList } = useVenueMapList()
   const { selectedVenueCategory } = useSelectedVenueCategory()
   const { currentPlaceId, setCurrentPlaceId } = useCurrentPlaceId()
-  const { venueMapList, setVenueMapList } = useVenueMapList()
-  const [currentHeight, setCurrentHeight] = useState<number>(0)
   const [currentFilterCategory, setCurrentFilterCategory] = useState<{
     type: string
     title: string
@@ -83,10 +84,6 @@ const Map = () => {
     }
 
   useEffect(() => {
-    setCurrentHeight(window.innerHeight)
-  }, [])
-
-  useEffect(() => {
     const checkedCategories = Object.entries(selectedVenueCategory).reduce(
       (acc, [key, value]) => {
         if (value.length > 0) {
@@ -120,8 +117,8 @@ const Map = () => {
   }, [])
 
   return (
-    <Wrapper>
-      <MapFilterContainer>
+    <S.Wrapper>
+      <S.MapFilterContainer>
         <Button
           width={32}
           height={32}
@@ -160,7 +157,7 @@ const Map = () => {
             {title}
           </Button>
         ))}
-      </MapFilterContainer>
+      </S.MapFilterContainer>
       {isFilterModalOpen && (
         <MapFilterModal
           isFilterModalOpen={isFilterModalOpen}
@@ -169,7 +166,7 @@ const Map = () => {
           setIsFilterModalOpen={setIsFilterModalOpen}
         />
       )}
-      <KakaoMapWrapper currentHeight={currentHeight}>
+      <S.KakaoMapWrapper currentHeight={currentHeight}>
         <KakaoMap
           center={
             venueMapList?.result?.length
@@ -210,7 +207,7 @@ const Map = () => {
             />
           ))}
         </KakaoMap>
-      </KakaoMapWrapper>
+      </S.KakaoMapWrapper>
       {!!venueMapList?.result?.length &&
         venueMapList?.isKeywordExists !== null && <MapNoSearchListCard />}
       {!!venueMapList?.result?.length && (
@@ -218,37 +215,8 @@ const Map = () => {
           <MapDetailCard currentMapItem={currentMapItem} />
         </>
       )}
-    </Wrapper>
+    </S.Wrapper>
   )
 }
 
 export default Map
-
-const Wrapper = styled.div`
-  width: 375px;
-  position: relative;
-`
-const KakaoMapWrapper = styled.div<{
-  currentHeight: number
-}>`
-  width: 375px;
-  height: calc(100vh - 182px);
-  height: ${({ currentHeight }) =>
-    currentHeight ? `calc(${currentHeight}px - 182px)` : `calc(100vh - 182px)`};
-  background-color: ${({ theme }) => theme.colors.wrapper};
-`
-
-const MapFilterContainer = styled.div`
-  width: 375px;
-  height: 53px;
-  padding: 10px 0 10px 20px;
-  background-color: ${({ theme }) => theme.colors.gray0};
-  border-bottom: 1px solid ${({ theme }) => theme.colors.gray100};
-  ${({ theme }) => theme.flex.flexAlignItemsCenter};
-  gap: 4px;
-  flex-wrap: nowrap;
-  overflow-x: scroll;
-  &::-webkit-scrollbar {
-    display: none;
-  }
-`
