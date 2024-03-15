@@ -13,6 +13,5 @@ export const Container = styled.div<{
   margin: auto;
   padding: 0 20px;
   background-color: ${({ theme }) => theme.colors.gray0};
-  border: 1px solid ${({ theme }) => theme.colors.gray100};
   ${({ theme }) => theme.flex.flexDAC};
 `
