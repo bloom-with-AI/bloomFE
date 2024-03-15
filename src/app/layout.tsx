@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import ClientComponentContainer from '@/app/ClientComponentContainer'
+import Script from 'next/script'
 
 export const metadata: Metadata = {
   title: 'Bloom',
@@ -14,6 +15,12 @@ const RootLayout = ({
   return (
     <html lang="ko">
       <body>
+        <Script
+          type="text/javascript"
+          strategy="beforeInteractive"
+          src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${'432a56f357642e72f4ea20e4abfb5131'}
+&autoload=false&libraries=services`}
+        />
         <ClientComponentContainer>{children}</ClientComponentContainer>
       </body>
     </html>

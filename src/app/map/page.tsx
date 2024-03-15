@@ -1,7 +1,12 @@
+import Map from '@/containers/map'
 import { Layout } from '@/components/organism'
 
 const MapPage = () => {
-  return <Layout>map</Layout>
+  return (
+    <Layout>
+      <Map />
+    </Layout>
+  )
 }
 
 export default MapPage
