@@ -3,6 +3,7 @@
 import { ThemeProvider } from 'styled-components'
 import { Box } from '@/components/atoms'
 import { theme, GlobalStyle } from '@/styles'
+import { useCurrentWindowHeight } from '@/hooks'
 import StyledComponentsRegistry from '@/lib/registry'
 
 interface ClientComponentContainerProps {
@@ -12,25 +13,24 @@ interface ClientComponentContainerProps {
 const ClientComponentContainer = ({
   children,
 }: ClientComponentContainerProps) => {
+  const currentHeight = useCurrentWindowHeight()
+
   return (
     <StyledComponentsRegistry>
       <ThemeProvider theme={theme}>
         <GlobalStyle />
         <Box
           width={'100%'}
-          height={'100vh'}
           display={'flexCC'}
           backgroundColor={'wrapper'}
+          height={currentHeight || '100vh'}
         >
-          <Box width={430} height={'100vh'} display={'flexDAC'}>
-            <Box
-              width={375}
-              height={'100vh'}
-              padding={'0 20px'}
-              display={'flexDAC'}
-            >
-              {children}
-            </Box>
+          <Box
+            width={430}
+            display={'flexDAC'}
+            height={currentHeight || '100vh'}
+          >
+            {children}
           </Box>
         </Box>
       </ThemeProvider>

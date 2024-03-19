@@ -1,5 +1,7 @@
+import { Layout } from '@/components/organism'
+
 const HomePage = () => {
-  return <main></main>
+  return <Layout>home</Layout>
 }
 
 export default HomePage

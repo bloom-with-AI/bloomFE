@@ -16,8 +16,8 @@ export interface BoxProps {
   borderColor?: string
   borderRadius?: number
   backgroundColor?: string
-  width: number | string | 'auto'
-  height: number | string | 'auto'
+  width?: number | string | 'auto'
+  height?: number | string | 'auto'
   minWidth?: number | string | 'auto'
   children?: React.ReactNode
 }
