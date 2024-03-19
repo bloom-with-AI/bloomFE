@@ -15,8 +15,9 @@ interface LayoutProps {
 
 const Layout = ({ children }: LayoutProps) => {
   const pathname = usePathname()
+  const trimmedPathname = pathname.replace(/\/\d.*$/, '')
   const currentHeight = useCurrentWindowHeight()
-  const pageConfig = pagesConfig[pathname as PageKey]
+  const pageConfig = pagesConfig[trimmedPathname as PageKey]
 
   const innerHeight =
     (pageConfig.showHeader ? 56 : 0) + (pageConfig.showFooter ? 72 : 0)
