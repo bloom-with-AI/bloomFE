@@ -43,7 +43,7 @@ const Footer = () => {
           width={112}
           fontSize={12}
           fontWeight={500}
-          margin={'5px 0 0 0'}
+          padding={'5px 0 0 0'}
           cursor={'pointer'}
           display={'flexDCC'}
         >
