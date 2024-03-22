@@ -75,6 +75,8 @@ export const Box = styled.div<BoxProps>`
       return theme.flex.flexFlexStartCenter
     } else if ($display === 'flexCW') {
       return theme.flex.flexCW
+    } else if ($display === 'flexCCW') {
+      return theme.flex.flexCCW
     } else if ($display === 'flexW') {
       return theme.flex.flexW
     }
