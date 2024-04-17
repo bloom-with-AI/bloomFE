@@ -1,10 +1,17 @@
-import type { Metadata } from 'next'
+import type { Metadata , Viewport } from 'next'
 import ClientComponentContainer from '@/app/ClientComponentContainer'
 import Script from 'next/script'
 
 export const metadata: Metadata = {
   title: 'Bloom',
   description: '똑똑한 AI 웨딩 플레너 블룸',
+}
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
 }
 
 const RootLayout = ({
